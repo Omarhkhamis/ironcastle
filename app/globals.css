@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-gradient-to-b from-white to-[#f9fafb] text-[#2f3233] antialiased;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  .dark body {
+    @apply bg-gradient-to-b from-[#0b0f14] to-[#0f151d] text-[#e5e7eb];
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  img {
+    @apply max-w-full rounded-[14px] align-middle;
+  }
+}

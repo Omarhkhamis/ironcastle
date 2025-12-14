@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "aluminum-facade-dubai",
+    "title": "Aluminum Curtain Wall — Dubai",
+    "categoryLabel": "Aluminum",
+    "image": "https://picsum.photos/seed/aluminum-facade-main/1200/700",
+    "categories": ["aluminum", "commercial"],
+    "location": "Dubai - UAE",
+    "overview": "High-performance aluminum curtain wall with thermal breaks, clean sightlines, and coordinated finishes for a premium commercial tower.",
+    "description": "Unitized panels with custom glazing, integrated sun-shading, and weather seals for durability and energy efficiency. Fabrication followed strict QA, ensuring alignment, airtightness, and rapid on-site installation. Tailored mullion and transom depths achieve both structural rigidity and aesthetic rhythm.",
+    "gallery": [
+      "https://picsum.photos/seed/aluminum-facade-1/600/400",
+      "https://picsum.photos/seed/aluminum-facade-2/600/400",
+      "https://picsum.photos/seed/aluminum-facade-3/600/400",
+      "https://picsum.photos/seed/aluminum-facade-4/600/400"
+    ]
+  },
+  {
+    "slug": "steel-structure-industrial",
+    "title": "Industrial Steel Structure — Sharjah",
+    "categoryLabel": "Steel Structure",
+    "image": "https://picsum.photos/seed/industrial-steel-main/1200/700",
+    "categories": ["steel", "commercial"],
+    "location": "Sharjah - UAE",
+    "overview": "Heavy-duty steel frame with mezzanines, platforms, and integrated safety systems for an industrial facility.",
+    "description": "Designed for high loads and aggressive environments: galvanized members, fire-proofing allowances, and bolted connections for fast erection. Includes overhead crane rails, ladders, handrails, and anti-slip grating for safe circulation. Coordinated embeds and anchor bolts delivered accurate, swift site assembly.",
+    "gallery": [
+      "https://picsum.photos/seed/industrial-steel-1/600/400",
+      "https://picsum.photos/seed/industrial-steel-2/600/400",
+      "https://picsum.photos/seed/industrial-steel-3/600/400",
+      "https://picsum.photos/seed/industrial-steel-4/600/400"
+    ]
+  },
+  {
+    "slug": "steel-staircase-residential",
+    "title": "Residential Steel Staircase — Abu Dhabi",
+    "categoryLabel": "Steel",
+    "image": "https://picsum.photos/seed/steel-stairs-main/1200/700",
+    "categories": ["steel", "residential"],
+    "location": "Abu Dhabi - UAE",
+    "overview": "Custom floating steel staircase with glass balustrades, precision-welded stringers, and a premium powder-coated finish.",
+    "description": "Laser-cut components, concealed fixings, and vibration control deliver a seamless, quiet ascent. Curated treads with anti-slip inserts and low-iron glass rails provide clarity and safety. Installed with millimeter accuracy to align with interior finishes and lighting details.",
+    "gallery": [
+      "https://picsum.photos/seed/steel-stairs-1/600/400",
+      "https://picsum.photos/seed/steel-stairs-2/600/400",
+      "https://picsum.photos/seed/steel-stairs-3/600/400",
+      "https://picsum.photos/seed/steel-stairs-4/600/400"
+    ]
+  }
+]

@@ -94,11 +94,11 @@ export default function Header({
       <div
         className={`md:hidden ${
           menuOpen
-            ? "fixed inset-0 z-40 bg-white/98 text-dark backdrop-blur-sm dark:bg-[#0b0f14]/95 dark:text-white"
+            ? "fixed inset-0 z-50 h-screen w-screen bg-white text-dark dark:bg-[#0b0f14] dark:text-white"
             : "hidden"
         }`}
       >
-        <ul className="mx-auto flex h-full max-w-6xl flex-col gap-3 px-5 py-6 text-base font-semibold">
+        <ul className="flex h-full w-full flex-col gap-4 overflow-y-auto bg-white px-6 py-8 text-base font-semibold dark:bg-[#0b0f14]">
           {navItems.map((item) => (
             <li key={`mobile-${item.target}`}>
               <a

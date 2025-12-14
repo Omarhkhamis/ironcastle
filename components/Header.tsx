@@ -93,14 +93,14 @@ export default function Header({
 
       <div
         className={`md:hidden ${
-          menuOpen ? "block" : "hidden"
-        } border-t border-graymid/70 bg-white/95 backdrop-blur`}
+          menuOpen ? "fixed inset-0 z-40 bg-white text-dark dark:bg-[#0f1116] dark:text-white" : "hidden"
+        }`}
       >
-        <ul className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-3 text-base font-normal text-graymain dark:text-gray-200">
+        <ul className="mx-auto flex h-full max-w-6xl flex-col gap-3 px-5 py-5 text-base font-semibold">
           {navItems.map((item) => (
             <li key={`mobile-${item.target}`}>
               <a
-                className="block rounded-lg px-3 py-2 transition hover:bg-graylight hover:text-dark dark:hover:bg-white/10 dark:hover:text-white"
+                className="block rounded-lg px-3 py-3 transition hover:bg-graylight hover:text-dark dark:hover:bg-white/10 dark:hover:text-white"
                 href={`#${item.target}`}
                 onClick={(event) => {
                   event.preventDefault();

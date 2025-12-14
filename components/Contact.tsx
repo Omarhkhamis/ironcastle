@@ -80,7 +80,7 @@ export default function Contact({ onNavigate }: Props) {
                   name="name"
                   required
                   type="text"
-                  className="rounded-lg border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  className="w-full rounded-xl border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-gray-400"
                   placeholder="Your name"
                 />
               </div>
@@ -96,7 +96,7 @@ export default function Contact({ onNavigate }: Props) {
                   name="email"
                   required
                   type="email"
-                  className="rounded-lg border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  className="w-full rounded-xl border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-gray-400"
                   placeholder="you@example.com"
                 />
               </div>
@@ -111,7 +111,7 @@ export default function Contact({ onNavigate }: Props) {
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="rounded-lg border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  className="w-full rounded-xl border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-gray-400"
                   placeholder="+971 5X XXX XXXX"
                 />
               </div>
@@ -125,14 +125,14 @@ export default function Contact({ onNavigate }: Props) {
                 <textarea
                   id="message"
                   name="message"
-                  className="min-h-[140px] rounded-lg border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  className="min-h-[140px] w-full rounded-xl border border-graymid bg-white px-4 py-3 text-base text-dark placeholder:text-gray-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-gray-400"
                   placeholder="Tell us about your project..."
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="mt-2 rounded-lg bg-accent px-5 py-3 font-semibold text-[#111] shadow-accent transition hover:-translate-y-[1px] hover:shadow-accentHover disabled:cursor-not-allowed disabled:opacity-70"
+                className="mt-2 w-full rounded-xl bg-accent px-5 py-3 font-semibold text-[#111] shadow-accent transition hover:-translate-y-[1px] hover:shadow-accentHover disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {status === "submitting" ? "Sending..." : "Send Request"}
               </button>

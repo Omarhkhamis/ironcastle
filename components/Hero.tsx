@@ -1,10 +1,18 @@
 type Props = {
   onNavigate: (target: string) => void;
+  heroImageUrl?: string | null;
 };
 
-export default function Hero({ onNavigate }: Props) {
+const DEFAULT_HERO =
+  "https://images.unsplash.com/photo-1541976590-713941681591?auto=format&fit=crop&w=1800&q=80";
+
+export default function Hero({ onNavigate, heroImageUrl }: Props) {
+  const backgroundImage = heroImageUrl || DEFAULT_HERO;
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-[url('https://images.unsplash.com/photo-1541976590-713941681591?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center px-5 py-24 md:py-28">
+    <section
+      className="relative flex min-h-screen items-center overflow-hidden bg-cover bg-center px-5 py-24 md:py-28"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/30 to-black/10 dark:from-black/70 dark:via-black/50 dark:to-black/20" />
 
       <div className="relative mx-auto max-w-5xl w-full">

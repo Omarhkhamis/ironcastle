@@ -1,21 +1,67 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
+
+type Social = { id: number; platform: string; url: string };
 
 type Props = {
   onNavigate: (target: string) => void;
+  contactEmail?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  businessHours?: string | null;
+  mapEmbed?: string | null;
+  socials?: Social[];
 };
 
-export default function Contact({ onNavigate }: Props) {
+const DEFAULT_HOURS = ["Saturday - Thursday", "09:00 AM - 06:00 PM"];
+const DEFAULT_MAP_SRC =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3422.570309776189!2d55.65607142494053!3d25.348822625543193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f38f860e70e9%3A0x5a16b0b28f3ebb4e!2zSXJvbiBDYXN0bGUgTWV0YWwgSW5kdXN0cmllcyBzdHJpZXMgTExDINin2YTZgtmE2LnZhyDYp9mE2K3Yr9mK2K_ZitmHINmE2YTYtdmG2KfYudin2Kog2KfZhNmF2LnYr9mG2YrYqSDYsNmFINmF!5e1!3m2!1sar!2sbe!4v1765736628797!5m2!1sar!2sbe";
+
+function parseHours(value?: string | null) {
+  if (!value) return [];
+  return value
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
+function resolveMapSrc(value?: string | null) {
+  if (!value) return DEFAULT_MAP_SRC;
+  const trimmed = value.trim();
+  if (!trimmed) return DEFAULT_MAP_SRC;
+  if (trimmed.toLowerCase().includes("<iframe")) {
+    const match = trimmed.match(/src=["']([^"']+)["']/i);
+    return match?.[1] || DEFAULT_MAP_SRC;
+  }
+  return trimmed;
+}
+
+export default function Contact({
+  onNavigate,
+  contactEmail,
+  phone,
+  address,
+  businessHours,
+  mapEmbed,
+  socials
+}: Props) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const hoursLines = useMemo(() => {
+    const parsed = parseHours(businessHours);
+    return parsed.length > 0 ? parsed : DEFAULT_HOURS;
+  }, [businessHours]);
+
+  const mapSrc = useMemo(() => resolveMapSrc(mapEmbed), [mapEmbed]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name");
     const email = formData.get("email");
-    const phone = formData.get("phone");
+    const phoneValue = formData.get("phone");
     const message = formData.get("message");
 
     setStatus("submitting");
@@ -25,7 +71,7 @@ export default function Contact({ onNavigate }: Props) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message })
+        body: JSON.stringify({ name, email, phone: phoneValue, message })
       });
 
       if (!res.ok) {
@@ -49,30 +95,21 @@ export default function Contact({ onNavigate }: Props) {
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-[1.2fr,1fr]">
           <div className="space-y-2">
-            <div className="text-sm font-bold uppercase tracking-[0.08em] text-accent">
-              Contact
-            </div>
+            <div className="text-sm font-bold uppercase tracking-[0.08em] text-accent">Contact</div>
             <h2 className="text-3xl font-bold md:text-4xl">
               Send Us a <span className="text-accent">Message</span>
             </h2>
             <p className="text-base text-gray-700 dark:text-gray-200">
-              Fill out the form below and our team will get back to you within
-              24 hours.
+              Fill out the form below and our team will get back to you within 24 hours.
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.2fr,1fr]">
           <div className="rounded-[14px] border border-graymid bg-white p-6 shadow-[0_10px_40px_rgba(0,0,0,0.1)] backdrop-blur dark:border-white/10 dark:bg-white/5 dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-            <form
-              onSubmit={handleSubmit}
-              className="grid gap-3 text-gray-700 dark:text-gray-200"
-            >
+            <form onSubmit={handleSubmit} className="grid gap-3 text-gray-700 dark:text-gray-200">
               <div className="grid gap-1">
-                <label
-                  htmlFor="name"
-                  className="text-sm font-semibold text-dark dark:text-white"
-                >
+                <label htmlFor="name" className="text-sm font-semibold text-dark dark:text-white">
                   Name *
                 </label>
                 <input
@@ -85,10 +122,7 @@ export default function Contact({ onNavigate }: Props) {
                 />
               </div>
               <div className="grid gap-1">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-semibold text-dark dark:text-white"
-                >
+                <label htmlFor="email" className="text-sm font-semibold text-dark dark:text-white">
                   Email *
                 </label>
                 <input
@@ -101,10 +135,7 @@ export default function Contact({ onNavigate }: Props) {
                 />
               </div>
               <div className="grid gap-1">
-                <label
-                  htmlFor="phone"
-                  className="text-sm font-semibold text-dark dark:text-white"
-                >
+                <label htmlFor="phone" className="text-sm font-semibold text-dark dark:text-white">
                   Phone
                 </label>
                 <input
@@ -116,10 +147,7 @@ export default function Contact({ onNavigate }: Props) {
                 />
               </div>
               <div className="grid gap-1">
-                <label
-                  htmlFor="message"
-                  className="text-sm font-semibold text-dark dark:text-white"
-                >
+                <label htmlFor="message" className="text-sm font-semibold text-dark dark:text-white">
                   Message
                 </label>
                 <textarea
@@ -136,12 +164,8 @@ export default function Contact({ onNavigate }: Props) {
               >
                 {status === "submitting" ? "Sending..." : "Send Request"}
               </button>
-              {status === "success" && (
-                <p className="text-sm text-green-500">Message sent successfully.</p>
-              )}
-              {status === "error" && (
-                <p className="text-sm text-red-500">{errorMessage}</p>
-              )}
+              {status === "success" && <p className="text-sm text-green-500">Message sent successfully.</p>}
+              {status === "error" && <p className="text-sm text-red-500">{errorMessage}</p>}
             </form>
           </div>
 
@@ -153,9 +177,7 @@ export default function Contact({ onNavigate }: Props) {
                 </span>
                 Email Us
               </div>
-              <p className="mt-2 text-gray-700 dark:text-gray-200">
-                Info@ironcastle.ae
-              </p>
+              <p className="mt-2 text-gray-700 dark:text-gray-200">{contactEmail || "info@ironcastle.ae"}</p>
             </div>
 
             <div className="rounded-[14px] border border-graymid bg-white p-4 text-dark shadow-[0_10px_40px_rgba(0,0,0,0.1)] backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -165,9 +187,7 @@ export default function Contact({ onNavigate }: Props) {
                 </span>
                 Call Us
               </div>
-              <p className="mt-2 text-gray-700 dark:text-gray-200">
-                +971 52 230 6357 / +971 52 232 9840
-              </p>
+              <p className="mt-2 text-gray-700 dark:text-gray-200">{phone || "+971 52 230 6357 / +971 52 232 9840"}</p>
             </div>
 
             <div className="rounded-[14px] border border-graymid bg-white p-4 text-dark shadow-[0_10px_40px_rgba(0,0,0,0.1)] backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -177,9 +197,7 @@ export default function Contact({ onNavigate }: Props) {
                 </span>
                 Visit Us
               </div>
-              <p className="mt-2 text-gray-700 dark:text-gray-200">
-                Al Sajaa_S- INDUSTRIAL - Sharjah UAE
-              </p>
+              <p className="mt-2 text-gray-700 dark:text-gray-200">{address || "Al Sajaa_S- INDUSTRIAL - Sharjah UAE"}</p>
             </div>
 
             <div className="rounded-[14px] border border-graymid bg-white p-4 text-dark shadow-[0_10px_40px_rgba(0,0,0,0.1)] backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-white dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -189,27 +207,24 @@ export default function Contact({ onNavigate }: Props) {
                 </span>
                 Business Hours
               </div>
-              <p className="mt-2 text-gray-700 dark:text-gray-200">
-                Saturday - Thursday
-              </p>
-              <p className="mt-1 text-gray-700 dark:text-gray-200">
-                09:00 AM - 06:00 PM
-              </p>
+              <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
+                {hoursLines.map((line, index) => (
+                  <p key={`${line}-${index}`}>{line}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         <div className="mt-6 rounded-[14px] border border-graymid bg-white p-3 shadow-[0_10px_40px_rgba(0,0,0,0.1)] backdrop-blur dark:border-white/10 dark:bg-white/5 dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div
-            className="relative w-full overflow-hidden rounded-[10px]"
-            style={{ paddingTop: "56.25%" }}
-          >
+          <div className="relative w-full overflow-hidden rounded-[10px]" style={{ paddingTop: "56.25%" }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3422.570309776189!2d55.65607142494053!3d25.348822625543193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f38f860e70e9%3A0x5a16b0b28f3ebb4e!2zSXJvbiBDYXN0bGUgTWV0YWwgSW5kdXN0cmllcyBzdHJpZXMgTExDINin2YTZgtmE2LnZhyDYp9mE2K3Yr9mK2K_ZitmHINmE2YTYtdmG2KfYudin2Kog2KfZhNmF2LnYr9mG2YrYqSDYsNmFINmF!5e1!3m2!1sar!2sbe!4v1765736628797!5m2!1sar!2sbe"
+              src={mapSrc}
               className="absolute left-0 top-0 h-full w-full border-0"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
+              title="Iron Castle location map"
             ></iframe>
           </div>
         </div>

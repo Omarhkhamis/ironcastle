@@ -78,31 +78,43 @@ export default function Partners({ partners }: Props) {
           </p>
         </div>
 
-        <div
-          ref={containerRef}
-          className="relative overflow-hidden"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-        >
-          <div
-            className="flex w-max select-none gap-4 px-6 py-6"
-            style={{ touchAction: "pan-y" }}
-          >
-            {loopedPartners.map((partner, index) => (
-              <div
-                key={`${partner.name}-${index}`}
-                className="min-w-[180px] rounded-xl border border-graymid bg-graylight px-4 py-3 text-center text-dark font-semibold dark:border-white/10 dark:bg-white/5 dark:text-white"
-              >
-                <div className="mb-2 flex justify-center text-accent text-xl">
-                  <i className={partner.icon} aria-hidden />
-                </div>
-                {partner.name}
-              </div>
-            ))}
+        {partners.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-graymid/80 bg-white p-8 text-center text-graymain dark:border-white/20 dark:bg-white/5 dark:text-gray-200">
+            Add partners inside the dashboard to highlight who trusts your work.
           </div>
-        </div>
+        ) : (
+          <div
+            ref={containerRef}
+            className="relative overflow-hidden"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          >
+            <div className="flex w-max select-none gap-8 px-6 py-6" style={{ touchAction: "pan-y" }}>
+              {loopedPartners.map((partner, index) => (
+                <div
+                  key={`${partner.name}-${index}`}
+                  className="flex h-32 min-w-[45vw] items-center justify-center px-4 py-4 sm:min-w-[40vw] md:min-w-[25%] lg:min-w-[22%]"
+                >
+                  {partner.logoUrl ? (
+                    <img
+                      src={partner.logoUrl}
+                      alt={partner.name}
+                      className="h-full max-h-20 w-auto object-contain"
+                    />
+                  ) : partner.icon ? (
+                    <i className={`${partner.icon} text-3xl text-accent`} aria-hidden />
+                  ) : (
+                    <span className="text-lg font-semibold text-dark dark:text-white">
+                      {partner.name}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

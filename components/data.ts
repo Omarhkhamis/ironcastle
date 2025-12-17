@@ -1,20 +1,33 @@
 export type NavItem = { label: string; target: string };
 export type Stat = { label: string; value: string; icon: string };
-export type Service = { icon: string; title: string; description: string };
+export type Service = {
+  id?: number;
+  icon?: string | null;
+  title: string;
+  description: string;
+  order?: number;
+};
 export type Project = {
+  id?: number;
   slug: string;
   title: string;
   categoryLabel: string;
-  image: string;
+  mainImage: string;
   categories: string[];
-  location?: string;
-  overview?: string;
-  description?: string;
+  location?: string | null;
+  overview?: string | null;
+  description?: string | null;
   gallery?: string[];
 };
 export type FilterOption = { label: string; value: string };
 export type WhyUsItem = { icon: string; title: string; description: string };
-export type Partner = { name: string; icon: string };
+export type Partner = {
+  id?: number;
+  name: string;
+  logoUrl?: string | null;
+  url?: string | null;
+  icon?: string;
+};
 
 export const navItems: NavItem[] = [
   { label: "About", target: "about" },
@@ -28,53 +41,6 @@ export const stats: Stat[] = [
   { label: "Years of Experience", value: "20+", icon: "fas fa-briefcase" },
   { label: "Projects Completed", value: "500+", icon: "fas fa-diagram-project" },
   { label: "Clients Served", value: "200+", icon: "fas fa-users" }
-];
-
-export const services: Service[] = [
-  {
-    icon: "fas fa-industry",
-    title: "Steel Structures",
-    description:
-      "Custom steel fabrication for buildings, bridges, and industrial structures with precision engineering and quality materials."
-  },
-  {
-    icon: "fas fa-door-open",
-    title: "Aluminum Doors & Windows",
-    description:
-      "High-quality aluminum framing systems for residential and commercial applications with modern design and durability."
-  },
-  {
-    icon: "fas fa-building",
-    title: "Curtain Walls",
-    description:
-      "Custom curtain wall systems for commercial buildings providing aesthetic appeal and energy efficiency."
-  },
-  {
-    icon: "fas fa-stairs",
-    title: "Handrails & Staircases",
-    description:
-      "Custom-designed handrails and staircases for safety and architectural enhancement in any space."
-  },
-  {
-    icon: "fas fa-tools",
-    title: "Custom Metal Works",
-    description:
-      "Specialized metal fabrication for unique projects including artistic installations and specialized equipment."
-  },
-  {
-    icon: "fas fa-wrench",
-    title: "Installation & Maintenance",
-    description:
-      "Professional installation services and comprehensive maintenance programs to ensure longevity of all metal structures."
-  }
-];
-
-export const projects: Project[] = projectsData as Project[];
-
-export const filterOptions: FilterOption[] = [
-  { label: "All Projects", value: "all" },
-  { label: "Steel", value: "steel" },
-  { label: "Aluminum", value: "aluminum" }
 ];
 
 export const whyUsItems: WhyUsItem[] = [
@@ -115,15 +81,3 @@ export const whyUsItems: WhyUsItem[] = [
       "Rigorous quality control processes ensure every piece meets the highest standards before delivery and installation."
   }
 ];
-
-export const partners: Partner[] = [
-  { name: "Contractor A", icon: "fas fa-helmet-safety" },
-  { name: "Developer B", icon: "fas fa-building" },
-  { name: "Architect C", icon: "fas fa-drafting-compass" },
-  { name: "Builder D", icon: "fas fa-city" },
-  { name: "Engineer E", icon: "fas fa-industry" },
-  { name: "Civic Works", icon: "fas fa-people-group" },
-  { name: "Harbor Architects", icon: "fas fa-bridge" },
-  { name: "UrbanGrid", icon: "fas fa-layer-group" }
-];
-import projectsData from "../data/projects.json";

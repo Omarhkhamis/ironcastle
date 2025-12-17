@@ -50,15 +50,20 @@ export default function ProjectsSection({
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <Link
-              key={project.title}
-              href={`/projects/${project.slug}`}
+        {projects.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-graymid/80 bg-white p-8 text-center text-graymain dark:border-white/20 dark:bg-white/5 dark:text-gray-200">
+            No projects published yet. Add projects from the dashboard to showcase your work here.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <Link
+                key={project.title}
+                href={`/projects/${project.slug}`}
               className="group relative overflow-hidden rounded-[14px] border border-graymid bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card dark:border-white/10 dark:bg-white/5"
             >
               <img
-                src={project.image}
+                src={project.mainImage}
                 alt={project.title}
                 className="h-56 w-full rounded-none object-cover"
               />
@@ -78,6 +83,7 @@ export default function ProjectsSection({
             </Link>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

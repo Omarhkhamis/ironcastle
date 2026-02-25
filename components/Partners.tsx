@@ -91,11 +91,11 @@ export default function Partners({ partners }: Props) {
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
           >
-            <div className="flex w-max select-none gap-8 px-6 py-6" style={{ touchAction: "pan-y" }}>
+            <div className="flex w-max select-none gap-4 px-2 py-6 md:px-4" style={{ touchAction: "pan-y" }}>
               {loopedPartners.map((partner, index) => (
                 <div
                   key={`${partner.name}-${index}`}
-                  className="flex h-32 min-w-[45vw] items-center justify-center px-4 py-4 sm:min-w-[40vw] md:min-w-[25%] lg:min-w-[22%]"
+                  className="flex h-32 min-w-[calc((100%-1rem)/2)] items-center justify-center px-4 py-4 md:min-w-[calc((100%-3rem)/4)]"
                 >
                   {partner.logoUrl ? (
                     <img
